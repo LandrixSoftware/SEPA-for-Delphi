@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{AFFB1F08-65BA-4694-B541-BB2566F23C96}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="SEPA\SEPAProject.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="SEPAProject">
+        <MSBuild Projects="SEPA\SEPAProject.dproj"/>
+    </Target>
+    <Target Name="SEPAProject:Clean">
+        <MSBuild Projects="SEPA\SEPAProject.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SEPAProject:Make">
+        <MSBuild Projects="SEPA\SEPAProject.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="SEPAProject"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="SEPAProject:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="SEPAProject:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
