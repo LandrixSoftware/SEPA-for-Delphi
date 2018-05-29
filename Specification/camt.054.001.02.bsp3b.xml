@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.054.001.02" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:camt.054.001.02 camt.054.001.02.xsd">
+<!-- Beispiel 3b: Sammleraufloesung in separater camt.054.001.01-Nachricht -->
+<!-- Mit XMLSpy v2008 rel. 2 sp2 (http://www.altova.com) im Mai 2016 von der SIZ GmbH (Wenzel) angepasst hinsichtlich Anlage 3, Version 3.0:  -->
+<!-- 1. BkTxCd Pflicht auf Entryebene, 2. Issuer nun "DK" (Statt "ZKA"), 3. Mapping GVC auf Domn (beide Ebenen) 4. Angabe Returninformation -->
+	<BkToCstmrDbtCdtNtfctn>
+		<GrpHdr>
+			<MsgId>054-20090903-00034</MsgId>
+			<!-- s. Bsp. camt53 Bsp 3b -->
+			<CreDtTm>2008-09-03T19:20:47.0+01:00</CreDtTm>
+			<MsgRcpt>
+				<Id>
+					<OrgId>
+						<Othr>
+							<Id>BCS45678</Id>
+						</Othr>
+					</OrgId>
+				</Id>
+			</MsgRcpt>
+			<MsgPgntn>
+				<PgNb>1</PgNb>
+				<LastPgInd>true</LastPgInd>
+			</MsgPgntn>
+		</GrpHdr>
+		<Ntfctn>
+			<Id>2736482736482</Id>
+			<CreDtTm>2008-09-03T17:30:47.0+01:00</CreDtTm>
+			<Acct>
+				<Id>
+					<IBAN>DE62210500001234567890</IBAN>
+				</Id>
+				<Ccy>EUR</Ccy>
+				<Ownr>
+					<Nm>Name Kontoinhaber</Nm>
+				</Ownr>
+				<Svcr>
+					<FinInstnId>
+						<BIC>BANKDEFFXXX</BIC>
+						<Othr>
+							<Id>DE123456789</Id>
+							<Issr>UmsStId</Issr>
+						</Othr>
+					</FinInstnId>
+				</Svcr>
+			</Acct>
+			<!--Belastung aufgrund von SEPA-Lastschriftrueckgaben - Sammleraufloesung-->
+			<Ntry>
+				<Amt Ccy="EUR">276</Amt>
+				<CdtDbtInd>DBIT</CdtDbtInd>
+				<Sts>BOOK</Sts>
+				<BookgDt>
+					<Dt>2008-09-03</Dt>
+				</BookgDt>
+				<ValDt>
+					<Dt>2008-09-03</Dt>
+				</ValDt>
+				<AcctSvcrRef>Bankreferenz</AcctSvcrRef>
+				<BkTxCd>
+				<Domn>
+					   <Cd>PNMT</Cd>
+					   <Fmly>
+						 <Cd>IDDT</Cd>
+						 <SubFmlyCd>UPDD</SubFmlyCd>
+						</Fmly>
+					</Domn>	
+					<Prtry>
+						<Cd>109</Cd>
+						<Issr>DK</Issr>
+					</Prtry>			
+				</BkTxCd>
+				<NtryDtls>
+					<TxDtls>
+						<!-- Ab hier Aufloesung des Sammlers bestehend aus 3 Einzelumsaetzen -->
+						<Refs>
+							<EndToEndId>79892</EndToEndId>
+							<MndtId>10001</MndtId>
+						</Refs>
+						<AmtDtls>
+							<TxAmt>
+								<Amt Ccy="EUR">76</Amt>
+							</TxAmt>
+						</AmtDtls>
+						<BkTxCd>
+						<Domn>
+						   <Cd>PNMT</Cd>
+							   <Fmly>
+								 <Cd>IDDT</Cd>
+								 <SubFmlyCd>UPDD</SubFmlyCd>
+								</Fmly>
+						</Domn>	
+						<Prtry>
+								<Cd>NRTI+109++901</Cd>
+								<Issr>DK</Issr>
+							</Prtry>
+						</BkTxCd>
+						<RltdPties>
+							<Dbtr>
+								<Nm>Herr Zahlungspflichtiger 1</Nm>
+							</Dbtr>
+							<DbtrAcct>
+								<Id>
+									<IBAN>DE89370400440532013000</IBAN>
+								</Id>
+							</DbtrAcct>
+							<Cdtr>
+								<Nm>Telefongesellschaft ABC</Nm>
+								<Id>
+									<PrvtId>
+										<Othr>
+											<Id>CdtrId des SEPA-Lastschrifteinr.</Id>
+										</Othr>
+									</PrvtId>
+								</Id>
+							</Cdtr>
+						</RltdPties>
+						<Purp>
+							<Cd>PHON</Cd>
+						</Purp>
+						<RmtInf>
+							<Ustrd>Telefonrechnung August 2009, Vertragsnummer 3536456345</Ustrd>
+						</RmtInf>
+						<RtrInf>
+							<Rsn>
+								<Cd>AC01</Cd>
+							</Rsn>			
+							<AddtlInf>RUECKLASTSCHRIFT</AddtlInf>
+					</RtrInf>						
+					</TxDtls>
+					<TxDtls>
+						<Refs>
+							<EndToEndId>768768</EndToEndId>
+							<MndtId>10002</MndtId>
+						</Refs>
+						<AmtDtls>
+							<TxAmt>
+								<Amt Ccy="EUR">80</Amt>
+							</TxAmt>
+						</AmtDtls>
+						<BkTxCd>
+						<Domn>
+						   <Cd>PNMT</Cd>
+							   <Fmly>
+								 <Cd>IDDT</Cd>
+								 <SubFmlyCd>UPDD</SubFmlyCd>
+								</Fmly>
+						</Domn>	
+						<Prtry>
+								<Cd>NRTI+109++901</Cd>
+								<Issr>ZKA</Issr>
+							</Prtry>
+						</BkTxCd>
+						<RltdPties>
+							<Dbtr>
+								<Nm>Herr Zahlungspflichtiger 2</Nm>
+							</Dbtr>
+							<DbtrAcct>
+								<Id>
+									<IBAN>DE68210501700012345678</IBAN>
+								</Id>
+							</DbtrAcct>
+							<Cdtr>
+								<Nm>Telefongesellschaft ABC</Nm>
+								<Id>
+									<PrvtId>
+										<Othr>
+											<Id>CdtrId des SEPA-Lastschrifteinr.</Id>
+										</Othr>
+									</PrvtId>
+								</Id>
+							</Cdtr>
+						</RltdPties>
+						<Purp>
+							<Cd>PHON</Cd>
+						</Purp>
+						<RmtInf>
+							<Ustrd>Telefonrechnung August 2009, Vertragsnummer 3536456888</Ustrd>
+						</RmtInf>
+						<RtrInf>
+							<Rsn>
+								<Cd>AC01</Cd>
+							</Rsn>	
+							<AddtlInf>RUECKLASTSCHRIFT</AddtlInf></RtrInf>
+					</TxDtls>
+					<TxDtls>
+						<Refs>
+							<EndToEndId>45456465</EndToEndId>
+							<MndtId>10003</MndtId>
+						</Refs>
+						<AmtDtls>
+							<TxAmt>
+								<Amt Ccy="EUR">120</Amt>
+							</TxAmt>
+						</AmtDtls>
+						<BkTxCd>
+							<Domn>
+						   <Cd>PNMT</Cd>
+							   <Fmly>
+								 <Cd>IDDT</Cd>
+								 <SubFmlyCd>UPDD</SubFmlyCd>
+								</Fmly>
+							</Domn>	
+							<Prtry>
+								<Cd>NRTI+109++901</Cd>
+								<Issr>ZKA</Issr>
+							</Prtry>
+						</BkTxCd>
+						<RltdPties>
+							<Dbtr>
+								<Nm>Herr Zahlungspflichtiger 3</Nm>
+							</Dbtr>
+							<DbtrAcct>
+								<Id>
+									<IBAN>DE93250696740085985000</IBAN>
+								</Id>
+							</DbtrAcct>
+							<Cdtr>
+								<Nm>Telefongesellschaft ABC</Nm>
+								<Id>
+									<PrvtId>
+										<Othr>
+											<Id>CdtrId des SEPA-Lastschrifteinr.</Id>
+										</Othr>
+									</PrvtId>
+								</Id>
+							</Cdtr>
+						</RltdPties>
+						<Purp>
+							<Cd>PHON</Cd>
+						</Purp>
+						<RmtInf>
+							<Ustrd>Telefonrechnung August 2009, Vertragsnummer 3536456345</Ustrd>
+						</RmtInf>
+						<RtrInf>
+							<Rsn>
+								<Cd>AC04</Cd>
+							</Rsn>
+							<!-- Es besteht die Option, dass neben der Konstante Rücklastschrift auch ein Klartext zur Bedeutung des Codes angegeben wird.  -->
+							<AddtlInf>RUECKLASTSCHRIFT Konto aufgelöst</AddtlInf>
+						</RtrInf>
+					</TxDtls>
+				</NtryDtls>				
+			</Ntry>
+		</Ntfctn>
+	</BkToCstmrDbtCdtNtfctn>
+</Document>

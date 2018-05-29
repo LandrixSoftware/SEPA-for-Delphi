@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Beispiel 1: SEPA-Zahlungen (Ueberweisung, Lastschrift, R-Nachricht -->
+<!-- Mit XMLSpy v2008 rel. 2 sp2 (http://www.altova.com) im Mai 2016 von der SIZ GmbH (Wenzel) angepasst hinsichtlich Anlage 3, Version 3.0:  -->
+<!-- 1. BkTxCd Pflicht auf Entryebene, 2. Issuer nun "DK" (Statt "ZKA"), 3. Mapping GVC auf Domn , 4. Darstellung: "Nichtdrehen" der beteiligten Parteien-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.02" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:camt.053.001.02 camt.053.001.02.xsd">
+	<BkToCstmrStmt>
+		<GrpHdr>
+			<MsgId>27632364572</MsgId>
+			<CreDtTm>2016-05-11T19:30:47.0+01:00</CreDtTm>
+			<MsgRcpt>
+				<Id>
+					<OrgId>
+						<Othr>
+							<Id>BCS45678</Id>
+						</Othr>
+					</OrgId>
+				</Id>
+			</MsgRcpt>
+			<MsgPgntn>
+				<PgNb>1</PgNb>
+				<LastPgInd>true</LastPgInd>
+			</MsgPgntn>
+		</GrpHdr>
+		<Stmt>
+			<Id>2736482736482</Id>
+			<ElctrncSeqNb>101</ElctrncSeqNb>
+			<CreDtTm>2016-05-11T17:30:47.0+01:00</CreDtTm>
+			<Acct>
+				<Id>
+					<IBAN>DE62210500001234567890</IBAN>
+				</Id>
+				<Ccy>EUR</Ccy>
+				<Ownr>
+					<Nm>Name Kontoinhaber</Nm>
+				</Ownr>
+				<Svcr>
+					<FinInstnId>
+						<BIC>BANKDEFFXXX</BIC>
+						<Othr>
+							<Id>DE123456789</Id>
+							<Issr>UmsStId</Issr>
+						</Othr>
+					</FinInstnId>
+				</Svcr>
+			</Acct>
+			<Bal>
+				<Tp>
+					<CdOrPrtry>
+						<Cd>PRCD</Cd>
+					</CdOrPrtry>
+				</Tp>
+				<Amt Ccy="EUR">3245.78</Amt>
+				<CdtDbtInd>CRDT</CdtDbtInd>
+				<Dt>
+					<Dt>2016-05-11</Dt>
+				</Dt>
+			</Bal>
+			<Bal>
+				<Tp>
+					<CdOrPrtry>
+						<Cd>CLBD</Cd>
+					</CdOrPrtry>
+				</Tp>
+				<Amt Ccy="EUR">3495.78</Amt>
+				<CdtDbtInd>CRDT</CdtDbtInd>
+				<Dt>
+					<Dt>2016-05-11</Dt>
+				</Dt>
+			</Bal>
+			<!--Gutschrift aufgrund eines SEPA-Ueberweisungseinganges-->
+			<Ntry>
+				<Amt Ccy="EUR">100.00</Amt>
+				<CdtDbtInd>CRDT</CdtDbtInd>
+				<Sts>BOOK</Sts>
+				<BookgDt>
+					<Dt>2016-05-11</Dt>
+				</BookgDt>
+				<ValDt>
+					<Dt>2016-05-11</Dt>
+				</ValDt>
+				<AcctSvcrRef>Bankreferenz</AcctSvcrRef>
+				<BkTxCd>
+					<Domn>
+					   <Cd>PMNT</Cd>
+					   <Fmly>
+						 <Cd>RCDT</Cd>
+						 <SubFmlyCd>ESCT</SubFmlyCd>
+						</Fmly>
+					</Domn>	
+					<Prtry>
+						<Cd>166</Cd>
+						<Issr>DK</Issr>
+					</Prtry>			
+				</BkTxCd>
+				<NtryDtls>
+					<TxDtls>
+						<Refs>
+							<EndToEndId>Ende-zu-Ende-Id des Ueberweisenden</EndToEndId>
+						</Refs>
+						<BkTxCd>
+							<Domn>
+							   <Cd>PMNT</Cd>
+							   <Fmly>
+								 <Cd>RCDT</Cd>
+								 <SubFmlyCd>ESCT</SubFmlyCd>
+								</Fmly>
+							</Domn>	
+							<Prtry>
+								<Cd>NTRF+166</Cd>
+								<Issr>DK</Issr>
+							</Prtry>
+						</BkTxCd>
+						<RltdPties>
+							<Dbtr>
+								<Nm>Herr Ueberweisender</Nm>
+							</Dbtr>
+							<DbtrAcct>
+								<Id>
+									<IBAN>DE21500500001234567897</IBAN>
+								</Id>
+							</DbtrAcct>
+							<UltmtDbtr>
+								<Nm>Herr Debtor Reference Party</Nm>
+							</UltmtDbtr>
+							<Cdtr>
+								<Nm>Herr Kontoinhaber</Nm>
+							</Cdtr>
+							<CdtrAcct>
+								<Id>
+									<IBAN>DE62210500001234567890</IBAN>
+								</Id>
+							</CdtrAcct>
+							<UltmtCdtr>
+								<Nm>Herr Creditor Reference Party</Nm>
+							</UltmtCdtr>
+						</RltdPties>
+						<RltdAgts>
+							<!--Creditor ist für eínen solchen Fall i.d. R. der Servicer-->
+							 <DbtrAgt><FinInstnId><BIC>SKUEDEFFXXX</BIC></FinInstnId></DbtrAgt>
+							 <CdtrAgt><FinInstnId><BIC>BANKDEFFXXX</BIC></FinInstnId></CdtrAgt>
+						 </RltdAgts>
+						<Purp>
+							<Cd>GDDS</Cd>
+						</Purp>
+						<RmtInf>
+							<Ustrd>Rechnungsnr. 4711 vom 20.04.2016</Ustrd>
+						</RmtInf>
+					</TxDtls>
+				</NtryDtls>
+				<AddtlNtryInf>SEPA GUTSCHRIFT</AddtlNtryInf>
+			</Ntry>
+			<!--Gutschrift aufgrund einer zurueckgekommenen SEPA-Ueberweisung (R-Transaktion) -->
+			<Ntry>
+				<Amt Ccy="EUR">200.00</Amt>
+				<CdtDbtInd>CRDT</CdtDbtInd>
+				<Sts>BOOK</Sts>
+				<BookgDt>
+					<Dt>2016-05-11</Dt>
+				</BookgDt>
+				<ValDt>
+					<Dt>2016-05-11</Dt>
+				</ValDt>
+				<AcctSvcrRef>Bankreferenz</AcctSvcrRef>
+				<BkTxCd>
+					<Domn>
+					   <Cd>PMNT</Cd>
+					   <Fmly>
+						 <Cd>ICDT</Cd>
+						 <SubFmlyCd>RRTN</SubFmlyCd>
+						</Fmly>
+					</Domn>	
+					<Prtry>
+						<Cd>159</Cd>
+						<Issr>DK</Issr>
+					</Prtry>			
+				</BkTxCd>
+				<NtryDtls>
+					<TxDtls>
+						<Refs>
+							<EndToEndId>Urspr. E2E-Id der Hintransaktion</EndToEndId>
+						</Refs>
+						<BkTxCd>
+							<Domn>
+							   <Cd>PMNT</Cd>
+							   <Fmly>
+								 <Cd>ICDT</Cd>
+								 <SubFmlyCd>RRTN</SubFmlyCd>
+								</Fmly>
+							</Domn>	
+							<Prtry>
+								<Cd>NRTI+159++901</Cd>
+								<Issr>DK</Issr>
+							</Prtry>
+						</BkTxCd>
+						<!--Bei R-Transaktion werden die Parteien NICHT gedreht. d.h. hier: bei einer Rückgutschrift steht der R-Gutschriftsempfänger (also der urpsprüngliche Überweisende) in den Debtorfeldern  -->
+						<RltdPties>
+							<Dbtr>
+								<Nm>Herr Original-Ueberweisender</Nm>
+							</Dbtr>
+							<DbtrAcct>
+								<Id>
+									<IBAN>DE62210500001234567890</IBAN>
+								</Id>
+							</DbtrAcct>
+							<UltmtDbtr>
+								<Nm>Herr Original Debtor Reference Party</Nm>
+							</UltmtDbtr>
+							<Cdtr>
+								<Nm>Herr Original-Ueberweisungsempfänger</Nm>
+							</Cdtr>
+							<CdtrAcct>
+								<Id>
+									<IBAN>DE21500500001234567897</IBAN>
+								</Id>
+							</CdtrAcct>
+							<UltmtCdtr>
+								<Nm>Herr Creditor Reference Party</Nm>
+							</UltmtCdtr>
+						</RltdPties>
+						<RltdAgts>
+							<!--Creditor ist für eínen solchen Fall i.d. R. der Servicer-->
+							 <DbtrAgt><FinInstnId><BIC>BANKDEFFXXX</BIC></FinInstnId></DbtrAgt>
+							 <CdtrAgt><FinInstnId><BIC>SKUEDEFFXXX</BIC></FinInstnId></CdtrAgt>
+						 </RltdAgts>
+						<RmtInf>
+							<Ustrd>Angabe des urspruenglichen Verwendungszweckes</Ustrd>
+						</RmtInf>
+						<RtrInf>
+							<OrgnlBkTxCd>
+								<Prtry>
+									<Cd>NTRF+116</Cd>
+									<Issr>DK</Issr>
+								</Prtry>
+							</OrgnlBkTxCd>
+							<Orgtr>
+								<Id>
+									<OrgId>
+										<BICOrBEI>BANKDEHH</BICOrBEI>
+									</OrgId>
+								</Id>
+							</Orgtr>
+							<Rsn>
+								<Cd>AC01</Cd>
+							</Rsn>
+							<AddtlInf>IBAN FEHLERHAFT</AddtlInf>
+						</RtrInf>
+					</TxDtls>
+				</NtryDtls>
+				<AddtlNtryInf>SEPA RUECKBUCHUNG</AddtlNtryInf>
+			</Ntry>
+			<!--Belastung aufgrund einer SEPA-Lastschrift-->
+			<Ntry>
+				<Amt Ccy="EUR">50.00</Amt>
+				<CdtDbtInd>DBIT</CdtDbtInd>
+				<Sts>BOOK</Sts>
+				<BookgDt>
+					<Dt>2016-05-11</Dt>
+				</BookgDt>
+				<ValDt>
+					<Dt>2016-05-11</Dt>
+				</ValDt>
+				<AcctSvcrRef>Bankreferenz</AcctSvcrRef>
+				<BkTxCd>
+					<Domn>
+					   <Cd>PMNT</Cd>
+					   <Fmly>
+						 <Cd>RDDT</Cd>
+						 <SubFmlyCd>ESDD</SubFmlyCd>
+						</Fmly>
+					</Domn>	
+					<Prtry>
+						<Cd>105</Cd>
+						<Issr>DK</Issr>
+					</Prtry>			
+				</BkTxCd>
+				<NtryDtls>
+					<TxDtls>
+						<Refs>
+							<EndToEndId>E2E-Id vergeben vom Glaeubiger</EndToEndId>
+							<MndtId>Ref. des SEPA-Lastschriftmandats</MndtId>
+						</Refs>
+						<BkTxCd>
+							<Domn>
+							   <Cd>PMNT</Cd>
+							   <Fmly>
+								 <Cd>RDDT</Cd>
+								 <SubFmlyCd>ESDD</SubFmlyCd>
+								</Fmly>
+							</Domn>	
+							<Prtry>
+								<Cd>NDDT+105</Cd>
+								<Issr>DK</Issr>
+							</Prtry>
+						</BkTxCd>
+						<RltdPties>
+							<Dbtr>
+								<Nm>Herr Zahlungspflichtiger</Nm>
+							</Dbtr>
+							<DbtrAcct>
+								<Id>
+									<IBAN>DE62210500001234567890</IBAN>
+								</Id>
+							</DbtrAcct>
+							<UltmtDbtr>
+								<Nm>Herr Debtor Reference Party</Nm>
+							</UltmtDbtr>
+							<Cdtr>
+								<Nm>Glaeubigerfirma</Nm>
+								<Id>
+									<PrvtId>
+										<Othr>
+											<Id>Cdtr-Id des Glaeubigers</Id>
+										</Othr>
+									</PrvtId>
+								</Id>
+							</Cdtr>
+							<CdtrAcct>
+								<Id>
+									<IBAN>DE21500500001234567897</IBAN>
+								</Id>
+							</CdtrAcct>
+						</RltdPties>
+						<RltdAgts>
+							<!--Debtor Agent ist für eínen solchen Fall i.d. R. der Servicer-->
+							 <DbtrAgt><FinInstnId><BIC>BANKDEFFXXX</BIC></FinInstnId></DbtrAgt>
+							 <CdtrAgt><FinInstnId><BIC>SKUEDEFFXXX</BIC></FinInstnId></CdtrAgt>
+						 </RltdAgts>
+						<Purp>
+							<Cd>PHON</Cd>
+						</Purp>
+						<RmtInf>
+							<Ustrd>Telefonrechnung April 2016, Vertragsnummer 3536456345</Ustrd>
+						</RmtInf>
+					</TxDtls>
+				</NtryDtls>
+				<AddtlNtryInf>SEPA LASTSCHRIFT</AddtlNtryInf>
+			</Ntry>
+		</Stmt>
+	</BkToCstmrStmt>
+</Document>

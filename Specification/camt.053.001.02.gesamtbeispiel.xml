@@ -1,0 +1,701 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mit XMLSpy v2008 rel. 2 sp2 (http://www.altova.com) im Mai 2016 von der SIZ GmbH (Wenzel) angepasst hinsichtlich Anlage 3, Version 3.0:  -->
+<!-- 1. BkTxCd Pflicht auf Entryebene, 2. Issuer nun "DK" (Statt "ZKA"), 3. Mapping GVC auf Domn, 4. Nichtdrehen bei R-Transaktionen illustriert 5. Schluss-Saldo angepasst (Löschung der DTAUS-Umsätze)-->
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.02" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:camt.053.001.02 camt.053.001.02.xsd">
+	<BkToCstmrStmt>
+		<GrpHdr>
+			<MsgId>27632364572</MsgId>
+			<CreDtTm>2016-05-11T19:30:47.0+01:00</CreDtTm>
+			<MsgRcpt>
+				<Id>
+					<OrgId>
+						<Othr>
+							<Id>BCS45678</Id>
+						</Othr>
+					</OrgId>
+				</Id>
+			</MsgRcpt>
+			<MsgPgntn>
+				<PgNb>1</PgNb>
+				<LastPgInd>true</LastPgInd>
+			</MsgPgntn>
+		</GrpHdr>
+		<Stmt>
+			<Id>2736482736482</Id>
+			<ElctrncSeqNb>101</ElctrncSeqNb>
+			<!--Folgendes Feld ist optional und könnte die Papier-KAZ enthalten-->
+			<LglSeqNb>32</LglSeqNb>
+			<CreDtTm>2016-05-11T17:30:47.0+01:00</CreDtTm>
+			<Acct>
+				<Id>
+					<IBAN>DE62210500001234567890</IBAN>
+				</Id>
+				<Ccy>EUR</Ccy>
+				<Ownr>
+					<Nm>Name Kontoinhaber</Nm>
+				</Ownr>
+				<Svcr>
+					<FinInstnId>
+						<BIC>BANKDEFFXXX</BIC>
+						<Othr>
+							<Id>DE123456789</Id>
+							<Issr>UmsStId</Issr>
+						</Othr>
+					</FinInstnId>
+				</Svcr>
+			</Acct>
+			<Bal>
+				<Tp>
+					<CdOrPrtry>
+						<Cd>PRCD</Cd>
+					</CdOrPrtry>
+				</Tp>
+				<Amt Ccy="EUR">112.72</Amt>
+				<CdtDbtInd>CRDT</CdtDbtInd>
+				<Dt>
+					<Dt>2016-05-11</Dt>
+				</Dt>
+			</Bal>
+			<Bal>
+				<Tp>
+					<CdOrPrtry>
+						<Cd>CLBD</Cd>
+					</CdOrPrtry>
+				</Tp>
+				<Amt Ccy="EUR">158530.32</Amt>
+				<CdtDbtInd>CRDT</CdtDbtInd>
+				<Dt>
+					<Dt>2016-05-11</Dt>
+				</Dt>
+			</Bal>
+			<!-- Beispiel 1: SEPA-Zahlungen (Ueberweisung, Lastschrift, R-Nachricht -->
+			<!--Gutschrift aufgrund eines SEPA-Ueberweisungseinganges-->
+			<Ntry>
+				<Amt Ccy="EUR">100.00</Amt>
+				<CdtDbtInd>CRDT</CdtDbtInd>
+				<Sts>BOOK</Sts>
+				<BookgDt>
+					<Dt>2016-05-11</Dt>
+				</BookgDt>
+				<ValDt>
+					<Dt>2016-05-11</Dt>
+				</ValDt>
+				<AcctSvcrRef>Bankreferenz</AcctSvcrRef>
+				<BkTxCd>
+					<Domn>
+					   <Cd>PMNT</Cd>
+					   <Fmly>
+						 <Cd>RCDT</Cd>
+						 <SubFmlyCd>ESCT</SubFmlyCd>
+						</Fmly>
+					</Domn>	
+					<Prtry>
+						<Cd>166</Cd>
+						<Issr>DK</Issr>
+					</Prtry>			
+				</BkTxCd>
+				<NtryDtls>
+					<TxDtls>
+						<Refs>
+							<EndToEndId>Ende-zu-Ende-Id des Ueberweisenden</EndToEndId>
+						</Refs>
+						<BkTxCd>
+							<Domn>
+							   <Cd>PMNT</Cd>
+							   <Fmly>
+								 <Cd>RCDT</Cd>
+								 <SubFmlyCd>ESCT</SubFmlyCd>
+								</Fmly>
+							</Domn>	
+							<Prtry>
+								<Cd>NTRF+166</Cd>
+								<Issr>DK</Issr>
+							</Prtry>
+						</BkTxCd>
+						<RltdPties>
+							<Dbtr>
+								<Nm>Herr Ueberweisender</Nm>
+							</Dbtr>
+							<DbtrAcct>
+								<Id>
+									<IBAN>DE21500500001234567897</IBAN>
+								</Id>
+							</DbtrAcct>
+							<UltmtDbtr>
+								<Nm>Herr Debtor Reference Party</Nm>
+							</UltmtDbtr>
+							<Cdtr>
+								<Nm>Herr Kontoinhaber</Nm>
+							</Cdtr>
+							<UltmtCdtr>
+								<Nm>Herr Creditor Reference Party</Nm>
+							</UltmtCdtr>
+						</RltdPties>
+						<Purp>
+							<Cd>GDDS</Cd>
+						</Purp>
+						<RmtInf>
+							<Ustrd>Rechnungsnr. 4711 vom 20.04.2016</Ustrd>
+						</RmtInf>
+					</TxDtls>
+				</NtryDtls>
+				<AddtlNtryInf>SEPA GUTSCHRIFT</AddtlNtryInf>
+			</Ntry>
+			<!--Gutschrift aufgrund einer zurueckgekommenen SEPA-Ueberweisung-->
+			<Ntry>
+				<Amt Ccy="EUR">200.00</Amt>
+				<CdtDbtInd>CRDT</CdtDbtInd>
+				<Sts>BOOK</Sts>
+				<BookgDt>
+					<Dt>2016-05-11</Dt>
+				</BookgDt>
+				<ValDt>
+					<Dt>2016-05-11</Dt>
+				</ValDt>
+				<AcctSvcrRef>Bankreferenz</AcctSvcrRef>
+				<BkTxCd>
+					<Domn>
+					   <Cd>PMNT</Cd>
+					   <Fmly>
+						 <Cd>ICDT</Cd>
+						 <SubFmlyCd>RRTN</SubFmlyCd>
+						</Fmly>
+					</Domn>	
+					<Prtry>
+						<Cd>159</Cd>
+						<Issr>DK</Issr>
+					</Prtry>			
+				</BkTxCd>
+				<NtryDtls>
+					<TxDtls>
+						<Refs>
+							<EndToEndId>Urspr. E2E-Id der Hintransaktion</EndToEndId>
+						</Refs>
+						<BkTxCd>
+							<Domn>
+							   <Cd>PMNT</Cd>
+							   <Fmly>
+								 <Cd>ICDT</Cd>
+								 <SubFmlyCd>RRTN</SubFmlyCd>
+								</Fmly>
+							</Domn>	
+							<Prtry>
+								<Cd>NRTI+159++901</Cd>
+								<Issr>DK</Issr>
+							</Prtry>
+						</BkTxCd>
+						<RmtInf>
+							<Ustrd>Angabe des urspruenglichen Verwendungszweckes</Ustrd>
+						</RmtInf>
+						<!--Informationen zur Originaltransaktion. Da die Belegung von Domain optional ist, kann auch nur Prtry (GVC) vorhanden sein-->
+						<RtrInf>
+							<OrgnlBkTxCd>
+								<Domn>
+								   <Cd>PMNT</Cd>
+								   <Fmly>
+									 <Cd>ICDT</Cd>
+									 <SubFmlyCd>ESCT</SubFmlyCd>
+									</Fmly>
+								</Domn>	
+								<Prtry>
+									<Cd>NTRF+116</Cd>
+									<Issr>DK</Issr>
+								</Prtry>
+							</OrgnlBkTxCd>
+							<Orgtr>
+								<Id>
+									<OrgId>
+										<BICOrBEI>BANKDEHH</BICOrBEI>
+									</OrgId>
+								</Id>
+							</Orgtr>
+							<Rsn>
+								<Cd>AC01</Cd>
+							</Rsn>
+							<AddtlInf>IBAN FEHLERHAFT</AddtlInf>
+						</RtrInf>
+					</TxDtls>
+				</NtryDtls>
+				<AddtlNtryInf>SEPA RUECKBUCHUNG</AddtlNtryInf>
+			</Ntry>
+			<!--Belastung aufgrund einer SEPA-Lastschrift-->
+			<Ntry>
+				<Amt Ccy="EUR">50.00</Amt>
+				<CdtDbtInd>DBIT</CdtDbtInd>
+				<Sts>BOOK</Sts>
+				<BookgDt>
+					<Dt>2016-05-11</Dt>
+				</BookgDt>
+				<ValDt>
+					<Dt>2016-05-11</Dt>
+				</ValDt>
+				<AcctSvcrRef>Bankreferenz</AcctSvcrRef>
+				<BkTxCd>
+					<Domn>
+					   <Cd>PNMT</Cd>
+					   <Fmly>
+						 <Cd>RDDT</Cd>
+						 <SubFmlyCd>ESDD</SubFmlyCd>
+						</Fmly>
+					</Domn>	
+					<Prtry>
+						<Cd>105</Cd>
+						<Issr>DK</Issr>
+					</Prtry>			
+				</BkTxCd>
+				<NtryDtls>
+					<TxDtls>
+						<Refs>
+							<EndToEndId>E2E-Id vergeben vom Glaeubiger</EndToEndId>
+							<MndtId>Ref. des SEPA-Lastschriftmandats</MndtId>
+						</Refs>
+						<BkTxCd>
+							<Domn>
+						   <Cd>PNMT</Cd>
+							<Fmly>
+								 <Cd>RDDT</Cd>
+								 <SubFmlyCd>ESDD</SubFmlyCd>
+							</Fmly>
+							</Domn>	
+							<Prtry>
+								<Cd>NDDT+105</Cd>
+								<Issr>DKA</Issr>
+							</Prtry>
+						</BkTxCd>
+						<RltdPties>
+							<Dbtr>
+								<Nm>Herr Zahlungspflichtiger</Nm>
+							</Dbtr>
+							<UltmtDbtr>
+								<Nm>Herr Debtor Reference Party</Nm>
+							</UltmtDbtr>
+							<Cdtr>
+								<Nm>Glaeubigerfirma</Nm>
+								<Id>
+									<PrvtId>
+										<Othr>
+											<Id>Cdtr-Id des Glaeubigers</Id>
+										</Othr>
+									</PrvtId>
+								</Id>
+							</Cdtr>
+						</RltdPties>
+						<Purp>
+							<Cd>PHON</Cd>
+						</Purp>
+						<RmtInf>
+							<Ustrd>Telefonrechnung April 2016, Vertragsnummer 3536456345</Ustrd>
+						</RmtInf>
+					</TxDtls>
+				</NtryDtls>
+				<AddtlNtryInf>SEPA LASTSCHRIFT</AddtlNtryInf>
+			</Ntry>
+			<!-- Beispiel 2: DTAUS-Zahlungen (Ueberweisung, Lastschrift, Rueckgabe) BEISPIEL ENTFERNT  -->
+			<!-- Beispiel 3a: Sammlerdarstellung mit Aufloesung innerhalb der Nachricht -->
+			<!--Belastung aufgrund von SEPA-Lastschriftrueckgaben (Sammelbuchung) mit Sammleraufloesung unter Transaction Details-->
+			<Ntry>
+				<Amt Ccy="EUR">276</Amt>
+				<CdtDbtInd>DBIT</CdtDbtInd>
+				<Sts>BOOK</Sts>
+				<BookgDt>
+					<Dt>2016-05-11</Dt>
+				</BookgDt>
+				<ValDt>
+					<Dt>2016-05-11</Dt>
+				</ValDt>
+				<AcctSvcrRef>Bankreferenz</AcctSvcrRef>
+				<BkTxCd>
+					<Domn>
+					   <Cd>PNMT</Cd>
+					   <Fmly>
+						 <Cd>IDDT</Cd>
+						 <SubFmlyCd>UPDD</SubFmlyCd>
+						</Fmly>
+					</Domn>	
+					<Prtry>
+						<Cd>109</Cd>
+						<Issr>DK</Issr>
+					</Prtry>			
+				</BkTxCd>
+				<NtryDtls>
+					<Btch>
+						<NbOfTxs>3</NbOfTxs>
+					</Btch>
+					<TxDtls>
+						<!-- Ab hier Aufloesung des Sammlers bestehend aus 3 Einzelumsaetzen -->						
+						<Refs>
+							<EndToEndId>79892</EndToEndId>
+							<MndtId>10001</MndtId>
+						</Refs>
+						<AmtDtls>
+							<TxAmt>
+								<Amt Ccy="EUR">76</Amt>
+							</TxAmt>
+						</AmtDtls>
+						<BkTxCd>
+							<Domn>
+							   <Cd>PNMT</Cd>
+							   <Fmly>
+								 <Cd>IDDT</Cd>
+								 <SubFmlyCd>UPDD</SubFmlyCd>
+								</Fmly>
+							</Domn>	
+							<Prtry>
+								<Cd>NRTI+109++901</Cd>
+								<Issr>DK</Issr>
+							</Prtry>
+						</BkTxCd>
+						<!--Weil bei R-Transaktionen nicht gedreht wird, stehen hier die Originals-->
+						<RltdPties>
+							<Dbtr>
+								<Nm>Herr Zahlungspflichtiger 1</Nm>
+							</Dbtr>
+							<DbtrAcct>
+								<Id>
+									 <IBAN>DE83700202707777777777</IBAN>
+								</Id>
+							</DbtrAcct>
+							<Cdtr>
+								<Nm>Telefongesellschaft ABC</Nm>
+								<Id>
+									<PrvtId>
+										<Othr>
+											<Id>CdtrId des SEPA-Lastschrifteinr.</Id>
+										</Othr>
+									</PrvtId>
+								</Id>
+							</Cdtr>
+							<CdtrAcct>
+								<Id>
+								  <IBAN>DE62210500001234567890</IBAN>
+								</Id>
+							</CdtrAcct>
+						</RltdPties>
+						<Purp>
+							<Cd>PHON</Cd>
+						</Purp>
+						<RmtInf>
+							<Ustrd>Telefonrechnung April 2016, Vertragsnummer 3536456345</Ustrd>
+						</RmtInf>
+						<RtrInf>
+							<Rsn>
+								<Cd>AC01</Cd>
+							</Rsn>
+							<AddtlInf>RUECKLASTSCHRIFT IBAN FEHLERHAFT</AddtlInf>
+						</RtrInf>
+					</TxDtls>
+					<TxDtls>
+						<Refs>
+							<EndToEndId>768768</EndToEndId>
+							<MndtId>10002</MndtId>
+						</Refs>
+						<AmtDtls>
+							<TxAmt>
+								<Amt Ccy="EUR">80</Amt>
+							</TxAmt>
+						</AmtDtls>
+						<BkTxCd>
+							<Domn>
+							   <Cd>PNMT</Cd>
+							   <Fmly>
+								 <Cd>IDDT</Cd>
+								 <SubFmlyCd>UPDD</SubFmlyCd>
+								</Fmly>
+							</Domn>
+							<Prtry>
+								<Cd>NRTI+109++901</Cd>
+								<Issr>DK</Issr>
+							</Prtry>
+						</BkTxCd>
+						<RltdPties>
+							<Dbtr>
+								<Nm>Herr Zahlungspflichtiger 2</Nm>
+							</Dbtr>
+							<DbtrAcct>
+								<Id>
+									 <IBAN>DE83700202704444444444</IBAN>
+								</Id>
+							</DbtrAcct>
+							<Cdtr>
+								<Nm>Telefongesellschaft ABC</Nm>
+								<Id>
+									<PrvtId>
+										<Othr>
+											<Id>CdtrId des SEPA-Lastschrifteinr.</Id>
+										</Othr>
+									</PrvtId>
+								</Id>
+							</Cdtr>
+							<CdtrAcct>
+								<Id>
+								  <IBAN>DE62210500001234567890</IBAN>
+								</Id>
+							</CdtrAcct>
+						</RltdPties>
+						<Purp>
+							<Cd>PHON</Cd>
+						</Purp>
+						<RmtInf>
+							<Ustrd>Telefonrechnung April 2016, Vertragsnummer 3536456888</Ustrd>
+						</RmtInf>
+						<RtrInf>
+							<Rsn>
+								<Cd>AC01</Cd>
+							</Rsn>
+							<AddtlInf>RUECKLASTSCHRIFT IBAN FEHLERHAFT</AddtlInf>
+						</RtrInf>
+					</TxDtls>
+					<TxDtls>
+						<Refs>
+							<EndToEndId>45456465</EndToEndId>
+							<MndtId>10003</MndtId>
+						</Refs>
+						<AmtDtls>
+							<TxAmt>
+								<Amt Ccy="EUR">120</Amt>
+							</TxAmt>
+						</AmtDtls>
+						<BkTxCd>
+							<Domn>
+							   <Cd>PNMT</Cd>
+							   <Fmly>
+								 <Cd>IDDT</Cd>
+								 <SubFmlyCd>UPDD</SubFmlyCd>
+								</Fmly>
+							</Domn>
+							<Prtry>
+								<Cd>NRTI+109++901</Cd>
+								<Issr>DK</Issr>
+							</Prtry>
+						</BkTxCd>
+						<RltdPties>
+							<Dbtr>
+								<Nm>Herr Zahlungspflichtiger 3</Nm>
+							</Dbtr>
+							<DbtrAcct>
+								<Id>
+									 <IBAN>DE83700202703333333333</IBAN>
+								</Id>
+							</DbtrAcct>
+							<Cdtr>
+								<Nm>Telefongesellschaft ABC</Nm>
+								<Id>
+									<PrvtId>
+										<Othr>
+											<Id>CdtrId des SEPA-Lastschrifteinr.</Id>
+										</Othr>
+									</PrvtId>
+								</Id>
+							</Cdtr>
+							<CdtrAcct>
+								<Id>
+								  <IBAN>DE62210500001234567890</IBAN>
+								</Id>
+							</CdtrAcct>
+						</RltdPties>
+						<Purp>
+							<Cd>PHON</Cd>
+						</Purp>
+						<RmtInf>
+							<Ustrd>Telefonrechnung April 2016, Vertragsnummer 3536456345</Ustrd>
+						</RmtInf>
+						<RtrInf>
+							<Rsn>
+								<Cd>AC01</Cd>
+							</Rsn>
+							<AddtlInf>RUECKLASTSCHRIFT IBAN FEHLERHAFT</AddtlInf>
+						</RtrInf>
+					</TxDtls>
+				</NtryDtls>				
+			</Ntry>
+			<!-- Beispiel 3b: Sammlerdarstellung mit Verweis auf pain-Nachricht und separate camt.054.001.01-Nachricht -->
+			<!--Belastung aufgrund einer SEPA-Ueberweisung (Sammler) mit Verweis auf Original pain-Nachricht-->
+			<Ntry>
+				<Amt Ccy="EUR">100876.00</Amt>
+				<CdtDbtInd>DBIT</CdtDbtInd>
+				<Sts>BOOK</Sts>
+				<BookgDt>
+					<Dt>2016-05-11</Dt>
+				</BookgDt>
+				<ValDt>
+					<Dt>2016-05-11</Dt>
+				</ValDt>
+				<AcctSvcrRef>Bankreferenz</AcctSvcrRef>
+				<BkTxCd>
+					<Domn>
+					   <Cd>PNMT</Cd>
+					   <Fmly>
+						 <Cd>ICDT</Cd>
+						 <SubFmlyCd>ESCT</SubFmlyCd>
+						</Fmly>
+					</Domn>	
+					<Prtry>
+						<Cd>191</Cd>
+						<Issr>DK</Issr>
+					</Prtry>			
+				</BkTxCd>
+				<NtryDtls>
+					<Btch>
+						<MsgId>MsgId der pain-Nachricht</MsgId>
+						<PmtInfId>Sammler-Id dieser pain-Nachricht</PmtInfId>
+					</Btch>
+					<TxDtls>
+						<BkTxCd>
+							<Domn>
+							   <Cd>PNMT</Cd>
+							   <Fmly>
+								 <Cd>ICDT</Cd>
+								 <SubFmlyCd>ESCT</SubFmlyCd>
+								</Fmly>
+							</Domn>	
+							<Prtry>
+								<Cd>NTRF+191</Cd>
+								<Issr>DK</Issr>
+							</Prtry>
+						</BkTxCd>
+					</TxDtls>
+				</NtryDtls>
+				<AddtlNtryInf>SEPA Credit Transfer (Sammler-Soll)</AddtlNtryInf>
+			</Ntry>
+			<!--Belastung aufgrund von SEPA-Lastschriftrueckgaben (Sammelbuchung) mit Verweis auf separate camt.054.001.01-Nachricht-->
+			<Ntry>
+				<Amt Ccy="EUR">276.00</Amt>
+				<CdtDbtInd>DBIT</CdtDbtInd>
+				<Sts>BOOK</Sts>
+				<BookgDt>
+					<Dt>2016-05-11</Dt>
+				</BookgDt>
+				<ValDt>
+					<Dt>2016-05-11</Dt>
+				</ValDt>
+				<AcctSvcrRef>Bankreferenz</AcctSvcrRef>
+				<BkTxCd>
+					<Domn>
+					   <Cd>PNMT</Cd>
+					   <Fmly>
+						 <Cd>IDDT</Cd>
+						 <SubFmlyCd>UPDD</SubFmlyCd>
+						</Fmly>
+					</Domn>	
+					<Prtry>
+						<Cd>109</Cd>
+						<Issr>DK</Issr>
+					</Prtry>			
+				</BkTxCd>
+				<AddtlInfInd>
+					<MsgNmId>camt.054.001.01</MsgNmId>
+					<MsgId>054-20160511-00034</MsgId>
+					<!-- siehe Bsp. camt54 Bsp 3b -->
+				</AddtlInfInd>
+				<NtryDtls>
+					<TxDtls>
+						<BkTxCd>
+							<Domn>
+							   <Cd>PNMT</Cd>
+							   <Fmly>
+								 <Cd>IDDT</Cd>
+								 <SubFmlyCd>UPDD</SubFmlyCd>
+								</Fmly>
+							</Domn>
+							<Prtry>
+								<Cd>NRTI+109++901</Cd>
+								<Issr>DK</Issr>
+							</Prtry>
+						</BkTxCd>
+					</TxDtls>
+				</NtryDtls>				
+			</Ntry>
+			<!-- Beispiel 4: USD-Zahlung mit Gutschrift auf einem EUR-Konto -->
+			<!-- USD-Zahlung mit Gutschrift auf einem EUR-Konto -->
+			<Ntry>
+				<Amt Ccy="EUR">259595.60</Amt>
+				<CdtDbtInd>CRDT</CdtDbtInd>
+				<Sts>BOOK</Sts>
+				<BookgDt>
+					<Dt>2016-05-11</Dt>
+				</BookgDt>
+				<ValDt>
+					<Dt>2016-05-11</Dt>
+				</ValDt>
+				<AcctSvcrRef>Bankreferenz</AcctSvcrRef>
+				<BkTxCd>
+							<Domn>
+							   <Cd>PMNT</Cd>
+							   <Fmly>
+								 <Cd>RCDT</Cd>
+								 <SubFmlyCd>XBCT</SubFmlyCd>
+								</Fmly>
+							</Domn>	
+							<Prtry>
+								<Cd>NTRF+202</Cd>
+								<Issr>DK</Issr>
+							</Prtry>
+						</BkTxCd>
+				<NtryDtls>
+					<TxDtls>
+						<AmtDtls>
+							<InstdAmt>
+								<Amt Ccy="USD">360873.97</Amt>
+							</InstdAmt>
+							<TxAmt>
+								<Amt Ccy="EUR">259595.60</Amt>
+							</TxAmt>
+							<CntrValAmt>
+								<Amt Ccy="EUR">259621.56</Amt>
+								<CcyXchg>
+									<SrcCcy>USD</SrcCcy>
+									<TrgtCcy>EUR</TrgtCcy>
+									<XchgRate>1.39</XchgRate>
+								</CcyXchg>
+							</CntrValAmt>
+						</AmtDtls>
+						<BkTxCd>
+							<Domn>
+							   <Cd>PMNT</Cd>
+							   <Fmly>
+								 <Cd>RCDT</Cd>
+								 <SubFmlyCd>XBCT</SubFmlyCd>
+								</Fmly>
+							</Domn>	
+							<Prtry>
+								<Cd>NTRF+202</Cd>
+								<Issr>DK</Issr>
+							</Prtry>
+						</BkTxCd>
+						<Chrgs>
+							<Amt Ccy="EUR">25.96</Amt>
+						</Chrgs>
+						<RltdPties>
+							<Dbtr>
+								<Nm>West Coast Ltd.</Nm>
+								<PstlAdr>
+									<Ctry>US</Ctry>
+									<AdrLine>52, Main Street</AdrLine>
+									<AdrLine>3733 San Francisco</AdrLine>
+								</PstlAdr>
+							</Dbtr>
+							<DbtrAcct>
+								<Id>
+									<Othr>
+										<Id>546237687</Id>
+									</Othr>
+								</Id>
+							</DbtrAcct>
+						</RltdPties>
+						<RltdAgts>
+							<DbtrAgt>
+								<FinInstnId>
+									<BIC>BANKUSNY</BIC>
+								</FinInstnId>
+							</DbtrAgt>
+						</RltdAgts>
+						<RmtInf>
+							<Ustrd>Invoice No. 4545</Ustrd>
+						</RmtInf>
+					</TxDtls>
+				</NtryDtls>
+				<AddtlNtryInf>AZV-UEBERWEISUNGSGUTSCHRIFT</AddtlNtryInf>
+			</Ntry>
+		</Stmt>
+	</BkToCstmrStmt>
+</Document>

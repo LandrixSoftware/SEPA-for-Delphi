@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.02" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:camt.053.001.02 camt.053.001.02.xsd">
+<!-- Beispiel 4: USD-Zahlung mit Gutschrift auf einem EUR-Konto -->
+<!-- Mit XMLSpy v2008 rel. 2 sp2 (http://www.altova.com) im Mai 2016 von der SIZ GmbH (Wenzel) angepasst hinsichtlich Anlage 3, Version 3.0:  -->
+<!-- 1. BkTxCd Pflicht auf Entryebene, 2. Issuer nun "DK" (Statt "ZKA"), 3. Mapping GVC auf Domn -->
+	<BkToCstmrStmt>
+		<GrpHdr>
+			<MsgId>27632372</MsgId>
+			<CreDtTm>2016-05-11T19:30:47.0+01:00</CreDtTm>
+			<MsgRcpt>
+				<Id>
+					<OrgId>
+						<Othr>
+							<Id>BCS45678</Id>
+						</Othr>
+					</OrgId>
+				</Id>
+			</MsgRcpt>
+			<MsgPgntn>
+				<PgNb>1</PgNb>
+				<LastPgInd>true</LastPgInd>
+			</MsgPgntn>
+		</GrpHdr>
+		<Stmt>
+			<Id>2736482736482</Id>
+			<ElctrncSeqNb>102</ElctrncSeqNb>
+			<CreDtTm>2016-05-11T17:30:47.0+01:00</CreDtTm>
+			<Acct>
+				<Id>
+					<IBAN>DE62210500001234567890</IBAN>
+				</Id>
+				<Ccy>EUR</Ccy>
+				<Ownr>
+					<Nm>Name Kontoinhaber</Nm>
+				</Ownr>
+				<Svcr>
+					<FinInstnId>
+						<BIC>BANKDEFFXXX</BIC>
+						<Othr>
+							<Id>DE123456789</Id>
+							<Issr>UmsStId</Issr>
+						</Othr>
+					</FinInstnId>
+				</Svcr>
+			</Acct>
+			<Bal>
+				<Tp>
+					<CdOrPrtry>
+						<Cd>PRCD</Cd>
+					</CdOrPrtry>
+				</Tp>
+				<Amt Ccy="EUR">3.40</Amt>
+				<CdtDbtInd>CRDT</CdtDbtInd>
+				<Dt>
+					<Dt>2016-05-11</Dt>
+				</Dt>
+			</Bal>
+			<Bal>
+				<Tp>
+					<CdOrPrtry>
+						<Cd>CLBD</Cd>
+					</CdOrPrtry>
+				</Tp>
+				<Amt Ccy="EUR">259599.00</Amt>
+				<CdtDbtInd>CRDT</CdtDbtInd>
+				<Dt>
+					<Dt>2016-05-11</Dt>
+				</Dt>
+			</Bal>
+			<!-- USD-Zahlung mit Gutschrift auf einem EUR-Konto -->
+			<Ntry>
+				<Amt Ccy="EUR">259595.60</Amt>
+				<CdtDbtInd>CRDT</CdtDbtInd>
+				<Sts>BOOK</Sts>
+				<BookgDt>
+					<Dt>2016-05-11</Dt>
+				</BookgDt>
+				<ValDt>
+					<Dt>2016-05-11</Dt>
+				</ValDt>
+				<AcctSvcrRef>Bankreferenz</AcctSvcrRef>
+				<BkTxCd>
+					<Domn>
+					   <Cd>PMNT</Cd>
+					   <Fmly>
+						 <Cd>RCDT</Cd>
+						 <SubFmlyCd>XBCT</SubFmlyCd>
+						</Fmly>
+					</Domn>	
+					<Prtry>
+						<Cd>202</Cd>
+						<Issr>DK</Issr>
+					</Prtry>			
+				</BkTxCd>
+				<NtryDtls>
+					<TxDtls>
+						<AmtDtls>
+							<InstdAmt>
+								<Amt Ccy="USD">360873.97</Amt>
+							</InstdAmt>
+							<TxAmt>
+								<Amt Ccy="EUR">259595.60</Amt>
+							</TxAmt>
+							<CntrValAmt>
+								<Amt Ccy="EUR">259621.56</Amt>
+								<CcyXchg>
+									<SrcCcy>USD</SrcCcy>
+									<TrgtCcy>EUR</TrgtCcy>
+									<XchgRate>1.39</XchgRate>
+								</CcyXchg>
+							</CntrValAmt>
+						</AmtDtls>
+						<BkTxCd>
+							<Domn>
+							   <Cd>PMNT</Cd>
+							   <Fmly>
+								 <Cd>RCDT</Cd>
+								 <SubFmlyCd>XBCT</SubFmlyCd>
+								</Fmly>
+							</Domn>	
+							<Prtry>
+								<Cd>NTRF+202</Cd>
+								<Issr>DK</Issr>
+							</Prtry>
+						</BkTxCd>
+						<Chrgs>
+							<Amt Ccy="EUR">25.96</Amt>
+						</Chrgs>
+						<RltdPties>
+							<Dbtr>
+								<Nm>West Coast Ltd.</Nm>
+								<PstlAdr>
+									<Ctry>US</Ctry>
+									<AdrLine>52, Main Street</AdrLine>
+									<AdrLine>3733 San Francisco</AdrLine>
+								</PstlAdr>
+							</Dbtr>
+							<DbtrAcct>
+								<Id>
+									<Othr>
+										<Id>546237687</Id>
+									</Othr>
+								</Id>
+							</DbtrAcct>
+						</RltdPties>
+						<RltdAgts>
+							<DbtrAgt>
+								<FinInstnId>
+									<BIC>BANKUSNY</BIC>
+								</FinInstnId>
+							</DbtrAgt>
+						</RltdAgts>
+						<RmtInf>
+							<Ustrd>Invoice No. 4545</Ustrd>
+						</RmtInf>
+					</TxDtls>
+				</NtryDtls>
+				<AddtlNtryInf>AZV-UEBERWEISUNGSGUTSCHRIFT</AddtlNtryInf>
+			</Ntry>
+		</Stmt>
+	</BkToCstmrStmt>
+</Document>

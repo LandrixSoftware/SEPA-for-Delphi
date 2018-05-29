@@ -2,7 +2,9 @@ program SEPAProject;
 
 uses
   Vcl.Forms,
-  SEPAUnit1 in 'SEPAUnit1.pas' {Form1};
+  SEPAUnit1 in 'SEPAUnit1.pas' {Form1},
+  intf.SEPATypes in '..\..\intf.SEPATypes.pas',
+  intf.SEPA in '..\..\intf.SEPA.pas';
 
 {$R *.res}
 

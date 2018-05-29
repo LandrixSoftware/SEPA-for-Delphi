@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:camt.053.001.02" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:iso:std:iso:20022:tech:xsd:camt.053.001.02 camt.053.001.02.xsd">
+<!-- Beispiel 3b: Sammlerdarstellung mit Verweis auf pain-Nachricht und separate camt.054.001.01-Nachricht -->
+<!-- Mit XMLSpy v2008 rel. 2 sp2 (http://www.altova.com) im Mai 2016 von der SIZ GmbH (Wenzel) angepasst hinsichtlich Anlage 3, Version 3.0:  -->
+<!-- 1. BkTxCd Pflicht auf Entryebene, 2. Issuer nun "DK" (Statt "ZKA"), 3. Mapping GVC auf Domn -->
+	<BkToCstmrStmt>
+		<GrpHdr>
+			<MsgId>27632364572</MsgId>
+			<CreDtTm>2016-05-11T19:30:47.0+01:00</CreDtTm>
+			<MsgRcpt>
+				<Id>
+					<OrgId>
+						<Othr>
+							<Id>BCS45678</Id>
+						</Othr>
+					</OrgId>
+				</Id>
+			</MsgRcpt>
+			<MsgPgntn>
+				<PgNb>1</PgNb>
+				<LastPgInd>true</LastPgInd>
+			</MsgPgntn>
+		</GrpHdr>
+		<Stmt>
+			<Id>2736482736482</Id>
+			<ElctrncSeqNb>103</ElctrncSeqNb>
+			<CreDtTm>2016-05-11T17:30:47.0+01:00</CreDtTm>
+			<Acct>
+				<Id>
+					<IBAN>DE62210500001234567890</IBAN>
+				</Id>
+				<Ccy>EUR</Ccy>
+				<Ownr>
+					<Nm>Name Kontoinhaber</Nm>
+				</Ownr>
+				<Svcr>
+					<FinInstnId>
+						<BIC>BANKDEFFXXX</BIC>
+						<Othr>
+							<Id>DE123456789</Id>
+							<Issr>UmsStId</Issr>
+						</Othr>
+					</FinInstnId>
+				</Svcr>
+			</Acct>
+			<Bal>
+				<Tp>
+					<CdOrPrtry>
+						<Cd>PRCD</Cd>
+					</CdOrPrtry>
+				</Tp>
+				<Amt Ccy="EUR">3245.78</Amt>
+				<CdtDbtInd>CRDT</CdtDbtInd>
+				<Dt>
+					<Dt>2016-05-11</Dt>
+				</Dt>
+			</Bal>
+			<Bal>
+				<Tp>
+					<CdOrPrtry>
+						<Cd>CLBD</Cd>
+					</CdOrPrtry>
+				</Tp>
+				<Amt Ccy="EUR">97906.22</Amt>
+				<CdtDbtInd>DBIT</CdtDbtInd>
+				<Dt>
+					<Dt>2016-05-11</Dt>
+				</Dt>
+			</Bal>
+			<!--Belastung aufgrund einer SEPA-Ueberweisung (Sammler) mit Verweis auf Original pain-Nachricht-->
+			<Ntry>
+				<Amt Ccy="EUR">100876.00</Amt>
+				<CdtDbtInd>DBIT</CdtDbtInd>
+				<Sts>BOOK</Sts>
+				<BookgDt>
+					<Dt>2016-05-11</Dt>
+				</BookgDt>
+				<ValDt>
+					<Dt>2016-05-11</Dt>
+				</ValDt>
+				<AcctSvcrRef>Bankreferenz</AcctSvcrRef>
+				<BkTxCd>
+					<Domn>
+					   <Cd>PMNT</Cd>
+					   <Fmly>
+						 <Cd>ICDT</Cd>
+						 <SubFmlyCd>ESCT</SubFmlyCd>
+						</Fmly>
+					</Domn>	
+					<Prtry>
+						<Cd>191</Cd>
+						<Issr>DK</Issr>
+					</Prtry>			
+				</BkTxCd>
+				<NtryDtls>
+					<Btch>
+						<MsgId>MsgId der pain-Nachricht</MsgId>
+						<PmtInfId>Sammler-Id dieser pain-Nachricht</PmtInfId>
+					</Btch>
+					<TxDtls>
+						<BkTxCd>
+							<Domn>
+							   <Cd>PMNT</Cd>
+							   <Fmly>
+								 <Cd>ICDT</Cd>
+								 <SubFmlyCd>ESCT</SubFmlyCd>
+								</Fmly>
+							</Domn>	
+							<Prtry>
+								<Cd>NTRF+191</Cd>
+								<Issr>DK</Issr>
+							</Prtry>
+						</BkTxCd>
+					</TxDtls>
+				</NtryDtls>
+				<AddtlNtryInf>SEPA-Ueberweisung</AddtlNtryInf>
+			</Ntry>
+			<!--Belastung aufgrund von SEPA-Lastschriftrueckgaben (Sammelbuchung) mit Verweis auf separate camt.054.001.01-Nachricht-->
+			<Ntry>
+				<Amt Ccy="EUR">276.00</Amt>
+				<CdtDbtInd>DBIT</CdtDbtInd>
+				<Sts>BOOK</Sts>
+				<BookgDt>
+					<Dt>2016-05-11</Dt>
+				</BookgDt>
+				<ValDt>
+					<Dt>2016-05-11</Dt>
+				</ValDt>
+				<AcctSvcrRef>Bankreferenz</AcctSvcrRef>
+				<BkTxCd>
+					<Domn>
+					   <Cd>PMNT</Cd>
+					   <Fmly>
+						 <Cd>IDDT</Cd>
+						 <SubFmlyCd>UPDD</SubFmlyCd>
+						</Fmly>
+					</Domn>	
+					<Prtry>
+						<Cd>109</Cd>
+						<Issr>DK</Issr>
+					</Prtry>			
+				</BkTxCd>
+				<AddtlInfInd>
+					<MsgNmId>camt.054.001.01</MsgNmId>
+					<MsgId>054-20160511-00034</MsgId>
+					<!-- siehe Bsp. camt54 Bsp 3b -->
+				</AddtlInfInd>
+				<NtryDtls>
+					<TxDtls>
+						<BkTxCd>
+							<Domn>
+						   <Cd>PMNT</Cd>
+							 <Fmly>
+								 <Cd>IDDT</Cd>
+								 <SubFmlyCd>UPDD</SubFmlyCd>
+							</Fmly>
+							</Domn>	
+							<Prtry>
+								<Cd>NRTI+109</Cd>
+								<Issr>DK</Issr>
+							</Prtry>
+						</BkTxCd>						
+					</TxDtls>
+				</NtryDtls>
+			</Ntry>
+		</Stmt>
+	</BkToCstmrStmt>
+</Document>
