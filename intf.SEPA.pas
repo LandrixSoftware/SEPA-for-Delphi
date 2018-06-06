@@ -22,52 +22,8 @@ type
     NtryDtlsTxDtlsCdtrAcctIBAN : String;
     NtryDtlsTxDtlsCdtrAcctBIC : String;
     NtryDtlsTxDtlsRmtInfIstrd : String;
-
-//        <NtryDtls>
-//          <TxDtls>
-//            <Refs>
-//              <MndtId>AD19816852119980223001</MndtId>
-//            </Refs>
-//            <BkTxCd>
-//              <Prtry>
-//                <Cd>N005+105</Cd>
-//                <Issr>DK</Issr>
-//              </Prtry>
-//            </BkTxCd>
-//            <RltdPties>
-//              <Cdtr>
-//                <Nm>Allg.Deutscher Automobil-Club ADAC e.V.</Nm>
-//                <Id>
-//                  <PrvtId>
-//                    <Othr>
-//                      <Id>DE30ZZZ00000056950</Id>
-//                    </Othr>
-//                  </PrvtId>
-//                </Id>
-//              </Cdtr>
-//              <CdtrAcct>
-//                <Id>
-//                  <IBAN>DE16700500000006055830</IBAN>
-//                </Id>
-//              </CdtrAcct>
-//            </RltdPties>
-//            <RltdAgts>
-//              <CdtrAgt>
-//                <FinInstnId>
-//                  <BIC>BYLADEMMXXX</BIC>
-//                </FinInstnId>
-//              </CdtrAgt>
-//            </RltdAgts>
-//            <RmtInf>
-//              <Ustrd>Referenz MITGL.-NR. 198168521 ADAC E.V. HARAZIM SVEN BEITRAG: 01. 03.18-01.03.19 abweichender Auftraggeber ADAC, Hansastr. 19, 80686 Munchen</Ustrd>
-//            </RmtInf>
-//          </TxDtls>
-//        </NtryDtls>
-//        <AddtlNtryInf>SDD LASTSCHR</AddtlNtryInf>
-
   public
     constructor Create;
-//    destructor Destroy; override;
     procedure Clear;
     procedure LoadData(_Node : IXMLReportEntry2);
   end;
@@ -107,6 +63,7 @@ type
       WalletFilename : String;
       AccessToken : String;
       Unattended : Boolean;
+      AccountsBroadcast : Boolean;
       AcctIBAN : String;
       AcctNo : String;
       ExportFromDate : TDate;
@@ -201,6 +158,8 @@ begin
            '-Token '+_Opt.AccessToken;
   if _Opt.Unattended then
     params := params + ' -Unattended';
+  if _Opt.AccountsBroadcast then
+    params := params + ' -SendRecv Rundruf';
   if _Opt.AcctNo.IsEmpty then
     params := params + ' -AcctIBAN '+_Opt.AcctIBAN
   else
@@ -313,6 +272,10 @@ var
   i : Integer;
   itm : TSEPANtry;
 begin
+  {$IF CompilerVersion <= 30.0}
+  if Pos('.', _Node.FrToDt.FrDtTm) = 0 then _Node.FrToDt.FrDtTm := ReplaceText(_Node.FrToDt.FrDtTm,'+','.0+');
+  if Pos('.', _Node.FrToDt.ToDtTm) = 0 then _Node.FrToDt.ToDtTm := ReplaceText(_Node.FrToDt.ToDtTm,'+','.0+');
+  {$ENDIF}
   ID := _Node.Id;
   CreationDateTime := ISO8601ToDate(_Node.CreDtTm,false);
   FromDateTime := ISO8601ToDate(_Node.FrToDt.FrDtTm,false);

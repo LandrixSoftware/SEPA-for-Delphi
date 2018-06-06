@@ -44,6 +44,15 @@ object Form1: TForm1
         TabOrder = 1
         WordWrap = False
       end
+      object Button2: TButton
+        Left = 120
+        Top = 0
+        Width = 75
+        Height = 25
+        Caption = 'Button2'
+        TabOrder = 2
+        OnClick = Button2Click
+      end
     end
   end
 end

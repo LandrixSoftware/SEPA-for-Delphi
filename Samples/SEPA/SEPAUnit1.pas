@@ -16,7 +16,9 @@ type
     TabSheet3: TTabSheet;
     Button1: TButton;
     Memo1: TMemo;
+    Button2: TButton;
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
   end;
 
 var
@@ -46,6 +48,37 @@ begin
       MessageDlg(err, mtError, [mbOK], 0);
       exit;
     end;
+    Memo1.Lines.Add('ID '+kntoausz.Rpt[0].ID);
+    Memo1.Lines.Add('IBAN '+kntoausz.Rpt[0].AcctIBAN);
+    Memo1.Lines.Add('CreationDateTime '+DateTimeToStr(kntoausz.Rpt[0].CreationDateTime));
+    Memo1.Lines.Add('FromDateTime '+DateTimeToStr(kntoausz.Rpt[0].FromDateTime));
+    Memo1.Lines.Add('ToDateTime '+DateTimeToStr(kntoausz.Rpt[0].ToDateTime));
+    Memo1.Lines.Add('BalanceOpening '+Format('%n',[kntoausz.Rpt[0].BalanceOpeningBookedAmount]));
+    for i := 0 to kntoausz.Rpt[0].Entries.Count-1 do
+    begin
+      Memo1.Lines.Add(Format('%n %s %s %s %s',[kntoausz.Rpt[0].Entries[i].Amount,
+                                   DateTimeToStr(kntoausz.Rpt[0].Entries[i].BookingDate),
+                                   DateTimeToStr(kntoausz.Rpt[0].Entries[i].ValutaDate),
+                                   kntoausz.Rpt[0].Entries[i].NtryDtlsTxDtlsCdtrName,
+                                   kntoausz.Rpt[0].Entries[i].NtryDtlsTxDtlsRmtInfIstrd]));
+
+    end;
+
+    Memo1.Lines.Add('BalanceClosing '+Format('%n',[kntoausz.Rpt[0].BalanceClosingBookedAmount]));
+  finally
+    kntoausz.Free;
+  end;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+var
+  kntoausz : TSEPABankStatement;
+  err : String;
+  i : Integer;
+begin
+  kntoausz := TSEPABankStatement.Create;
+  try
+    kntoausz.LoadFromFile('C:\Users\sven\Desktop\207888900.xml');
     Memo1.Lines.Add('ID '+kntoausz.Rpt[0].ID);
     Memo1.Lines.Add('IBAN '+kntoausz.Rpt[0].AcctIBAN);
     Memo1.Lines.Add('CreationDateTime '+DateTimeToStr(kntoausz.Rpt[0].CreationDateTime));
